@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "types": ["bun-types"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node"
+  },
+  "include": ["parse-mse-template.ts"],
+  "exclude": ["node_modules"]
+}

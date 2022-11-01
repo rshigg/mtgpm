@@ -1,0 +1,1135 @@
+{
+  "﻿mseVersion": "2.0.0",
+  "game": "magic",
+  "shortName": "M15 Mainframe",
+  "fullName": "M15 w/Text altering",
+  "icon": "card-sample.png",
+  "installerGroup": "magic/m15 style/normal cards",
+  "positionHint": 1,
+  "version": "2020-09-04",
+  "dependsOn": { "package": "magic-pride.mse-include", "version": "2021-05-26" },
+  "cardWidth": 375,
+  "cardHeight": 523,
+  "cardDpi": 150,
+  "setInfoStyle": {
+    "symbol": {
+      "variation": {
+        "name": "special",
+        "borderRadius": 0.1,
+        "fillType": "solid",
+        "fillColor": "rgb(155,155,155)",
+        "borderColor": "rgb(0,0,0)"
+      }
+    }
+  },
+  "stylingField": {
+    "type": "package choice",
+    "name": "overlay",
+    "description": "Should there be an overlay applied, such as foil?",
+    "match": "magic-overlay-*.mse-include",
+    "required": "false"
+  },
+  "stylingStyle": {
+    "useGuildManaSymbols": {
+      "choiceImages": {
+        "yes": "/magic-mana-small.mse-symbol-font/mana_guild_rg.png",
+        "no": "/magic-mana-small.mse-symbol-font/mana_rg.png"
+      }
+    },
+    "tapSymbol": {
+      "renderStyle": "both",
+      "choiceImages": {
+        "modern": "/magic-mana-large.mse-symbol-font/mana_t.png",
+        "old": "/magic-mana-large.mse-symbol-font/mana_t_old.png",
+        "diagonalT": "/magic-mana-large.mse-symbol-font/mana_t_older.png"
+      }
+    },
+    "centerText": {
+      "renderStyle": "both",
+      "choiceImages": {
+        "always": "/magic.mse-game/icons/center-all-text.png",
+        "shortTextOnly": "/magic.mse-game/icons/center-short-text.png",
+        "never": "/magic.mse-game/icons/center-no-text.png"
+      }
+    },
+    "invertedCommonSymbol": {
+      "choiceImages": {
+        "no": "{ symbol_variation(symbol: set.symbol, variation: \"common\") }",
+        "yes": "{ symbol_variation(symbol: set.symbol, variation: \"invertedcommon\") }"
+      }
+    },
+    "frames": { "renderStyle": "checklist", "direction": "vertical" },
+    "otherOptions": { "renderStyle": "checklist", "direction": "vertical" }
+  },
+  "cardStyle": {
+    "borderColor": {
+      "left": 0,
+      "top": 0,
+      "width": "{if is_borderless() then 0 else 375}",
+      "height": 523,
+      "radius": 18,
+      "leftWidth": 17,
+      "rightWidth": 17,
+      "topWidth": 17,
+      "bottomWidth": 18,
+      "zIndex": 4,
+      "mask": "{ (if is_puma() then \"puma_\" else \"\") + (if is_legend() then \"crown_border\" else \"border_mask\") + (if card.border_color == rgb(200,200,200) then \"_silver\" else \"\") + \".png\" }"
+    },
+    "cardColor": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "zIndex": 0,
+      "renderStyle": "image",
+      "popupStyle": "in place",
+      "image": "{ if is_clear() or clear_tops() then \"\" else if is_fnm() then fnm_background() else if is_inverted() then inverted_background() else if is_full_art() then promo_background() else if pure_snow() then snow_background() else card_background() }"
+    },
+    "name": {
+      "left": "{ if center_map() then 55 else if is_map() then (if use_node() then 65 else 60) else if use_node() then 58 else if card.card_symbol==\"none\" then 32 else 50 }",
+      "top": "{ if is_map() then 27 else if is_devoid() then 30 else if is_clear() or clear_tops() then 31 else 30 }",
+      "right": "{ if center_map() then 320 else (if is_map() then 320 else 341) - card_style.casting_cost.content_width }",
+      "height": "{ 23 - (0.5 * shrink_name()) }",
+      "alignment": "{if center_map() then \"center bottom shrink-overflow\" else \"left bottom shrink-overflow\" }",
+      "paddingBottom": 0,
+      "zIndex": 2,
+      "font": {
+        "name": "{ if is_map() then \"Beleren Small Caps\" else \"Beleren Bold\" }",
+        "size": "{ (if is_map() then 14.8 else 16) - shrink_name() }",
+        "color": "{if is_shifted() or is_fnm() or is_inverted() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_shifted() or is_fnm() then rgb(0,0,0) else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      }
+    },
+    "alias": {
+      "left": "{if is_skinned() then 45 else if is_map() then 15 else 33}",
+      "top": "{if is_map() then 58 else 53}",
+      "width": "{if is_skinned() then 285 else if use_evobar() then max(100, card_style.alias.content_width) else 0}",
+      "height": 20,
+      "alignment": "{ (if is_skinned() then \"center\" else \"\") + \"bottom shrink-overflow\"}",
+      "paddingBottom": 0,
+      "zIndex": 3,
+      "font": {
+        "name": "{if use_evobar() then \"Matrix\" else \"MPlantin-Italic\"}",
+        "size": "{if use_evobar() then 10 else 9}",
+        "style": "{if use_evobar() then \"italic\" else \"bold\"}",
+        "weight": "{if use_evobar() then \"italic\" else \"bold\"}",
+        "color": "{if use_evobar() then \"black\" else \"white\"}"
+      }
+    },
+    "castingCost": {
+      "right": "{ if is_map() then 327 else 346}",
+      "top": "{ if is_map() then 27 else 29}",
+      "width": "{ max(30, card_style.casting_cost.content_width) + 5 }",
+      "height": 23,
+      "alignment": "middle right",
+      "font": { "name": "MPlantin", "size": "{ if is_map() then 14 else 15}" },
+      "symbolFont": {
+        "name": "magic-mana-large",
+        "size": "{ if is_map() then 14 else 15}",
+        "alignment": "middle right"
+      },
+      "alwaysSymbol": "true",
+      "zIndex": 2,
+      "paddingTop": 0
+    },
+    "cardSymbol": {
+      "left": "{if card.card_symbol==\"none\" then 20 else 30}",
+      "top": 29,
+      "height": 20,
+      "width": 14,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "choiceImages": { "tombstone": "tombstone.png" }
+    },
+    "image": {
+      "left": "{ if is_clear() or is_map() or is_expanded_art() or is_puma() then 0 else if is_full_art() then 23 else if clear_tops() then 15 else if is_mutate() then 22 else 29}",
+      "top": "{if is_map() then 57 else if is_clear() or is_expanded_art() or clear_tops() then 0 else 59}",
+      "width": "{if is_clear() or is_map() or is_expanded_art() or is_puma() then 375 else if is_full_art() then 328 else if clear_tops() then 345 else if is_mutate() then 330 else 316}",
+      "height": "{if is_clear() or is_expanded_art() then 523 else if is_map() then 241 else if is_puma() then (if is_mutate() then 334 else 265) else if is_full_art() then 423 else if clear_tops() then 291 else if is_mutate() then 334 else 231}",
+      "zIndex": 1,
+      "default": "{default_image(card.card_color)}",
+      "mask": "{ if is_devoid() then \"image_mask_devoid.png\" else if is_clear() then \"image_mask.png\" else if is_thbland() then \"cornermask.png\" else if is_puma() then \"puma_mask\" + (if is_mutate() then \"_mutate.png\" else \"3.png\") else if is_expanded_art() then expanded_mask() else if is_full_art() then \"promo/image_mask\" + (if is_rare() and styling.use_holofoil_stamps then \"_rare\") + \".png\" else if is_mutate() and not clear_tops() then \"mutate_mask.png\" else \"\"}"
+    },
+    "mainframeImage": {
+      "left": "{if comma_count(styling.popout_image_style) == \",,,,\" then split_text(match:\",\", styling.popout_image_style).0 else \"0\"}",
+      "top": "{if comma_count(styling.popout_image_style) == \",,,,\" then split_text(match:\",\", styling.popout_image_style).1 else \"0\"}",
+      "width": "{if comma_count(styling.popout_image_style) == \",,,,\" then split_text(match:\",\", styling.popout_image_style).2 else \"0\"}",
+      "height": "{if comma_count(styling.popout_image_style) == \",,,,\" then split_text(match:\",\", styling.popout_image_style).3 else \"0\"}",
+      "zIndex": 8
+    },
+    "indicator": {
+      "left": "{ (if is_map() then 18  else if is_season() then 43 else 31) + (if is_clear() then 2 else 0) + (if use_flash_dot() then 3 else 0)}",
+      "top": "{ if is_clear() or is_map() then 298 else if is_thbland() then 449 else if is_full_art() then 332 else 300 }",
+      "width": 17,
+      "height": 17,
+      "zIndex": 2,
+      "renderStyle": "image",
+      "visible": "{ styling.color_indicator_dot }",
+      "image": "{ card_identity() }"
+    },
+    "type": {
+      "left": "{ if is_map() then 85 else (if use_flash_dot() then 3 else 0) + if is_season() then (if styling.color_indicator_dot then 64 else 44)+(if is_clear() then 4 else 0) else (if styling.color_indicator_dot then 52 else 32) + (if is_clear() then 4 else 0) }",
+      "top": "{ (if is_map() then 297.5 else if is_clear() then 294 else if is_thbland() then 444 else if is_full_art() then 329 else 296) + shrink_type() }",
+      "width": "{ if is_map() then 205 else (if styling.color_indicator_dot then \"290\" else \"310\") - (if card_style.rarity.width == 0 then 0 else max(22,card_style.rarity.content_width)) - (if is_season() then 12 else 0) }",
+      "height": "{ (if is_map() then 18 else 20) - shrink_type() }",
+      "alignment": "{ if is_map() then \"center top shrink-overflow\" else \"top shrink-overflow\"}",
+      "zIndex": 5,
+      "paddingTop": 2,
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{ (if is_map() then 12 else 13) - shrink_type() }",
+        "color": "{ if is_full_art() or is_puma() or is_shifted() or is_fnm() or is_inverted() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_full_art() or is_puma() or is_shifted() or is_fnm() then \"black\" else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1,
+        "separatorColor": "red"
+      }
+    },
+    "rarity": {
+      "right": "{ if is_map() then 199 else if is_scrolls() then 334 else 344}",
+      "top": "{ if is_map() then 53 else if is_clear() then 295 else if is_thbland() then 445 else if is_full_art() then 329 else 297 }",
+      "width": "{if set.shorten_types_for_rarity then 44 else 0}",
+      "height": 22,
+      "zIndex": 5,
+      "renderStyle": "image",
+      "alignment": "middle right",
+      "choiceImages": {
+        "basicLand": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"c.png\"",
+            "AltRarity()": "alt_symbol()",
+            "Styling.invertedCommonSymbol": "symbol_variation(symbol: set.symbol, variation: \"invertedcommon\")",
+            "default": "symbol_variation(symbol: set.symbol, variation: \"common\")"
+          }
+        },
+        "common": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"c.png\"",
+            "AltRarity()": "alt_symbol()",
+            "Styling.invertedCommonSymbol": "symbol_variation(symbol: set.symbol, variation: \"invertedcommon\")",
+            "default": "symbol_variation(symbol: set.symbol, variation: \"common\")"
+          }
+        },
+        "uncommon": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"u.png\"",
+            "AltRarity()": "alt_symbol()",
+            "default": "symbol_variation(symbol: set.symbol, variation: \"uncommon\")"
+          }
+        },
+        "rare": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"r.png\"",
+            "AltRarity()": "alt_symbol()",
+            "default": "symbol_variation(symbol: set.symbol, variation: \"rare\")"
+          }
+        },
+        "mythicRare": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"m.png\"",
+            "AltRarity()": "alt_symbol()",
+            "default": "symbol_variation(symbol: set.symbol, variation: \"mythic rare\")"
+          }
+        },
+        "special": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"s.png\"",
+            "AltRarity()": "alt_symbol()",
+            "default": "symbol_variation(symbol: set.symbol, variation: \"special\")"
+          }
+        },
+        "masterpiece": {
+          "script": {
+            "UseMainRarity()": "\"/magic-mainframe-extras.mse-include/\" + un_png(set.mainframe_rarity_name) + \"mp.png\"",
+            "default": "symbol_variation(symbol: set.masterpiece_symbol, variation: \"mythic rare\")"
+          }
+        }
+      }
+    },
+    "text": {
+      "left": "{ if (card.level_0 != \"\" or card.level_1 != \"\" or card.level_2 != \"\") then 75 else if is_map() then 40 else 29}",
+      "top": "{ top_of_textbox() }",
+      "width": "{ if is_leveler() then 0 else (if(card.level_0 != \"\" or card.level_1 != \"\" or card.level_2 != \"\") then -46 else 0) + if is_map() then 287 else 314 }",
+      "bottom": "{ bottom_of_textbox() }",
+      "font": {
+        "name": "MPlantin",
+        "italicName": "MPlantin-Italic",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else (if is_mutate() then 12 else 14)}",
+        "scaleDownTo": 6,
+        "color": "{ if is_full_art() or is_fnm() or is_inverted() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_full_art() or is_fnm() then \"black\" else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      },
+      "symbolFont": {
+        "name": "{ styling.text_box_mana_symbols }",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else (if is_mutate() then 12 else 14)}",
+        "scaleDownTo": 6
+      },
+      "alignment": { "script": { "default": "\"middle left\"" } },
+      "zIndex": 4,
+      "paddingLeft": 6,
+      "paddingRight": 4,
+      "lineHeightHard": "{if is_modal(card.rule_text) then 0.9 else 1.2 }",
+      "lineHeightLine": 1.5,
+      "lineHeightSoft": 0.9,
+      "lineHeightHardMax": "{if is_modal(card.rule_text) then 1.0 else 1.3 }",
+      "lineHeightLineMax": 1.6
+    },
+    "level1Text": {
+      "left": "{ if is_leveler() and card.level_0 != \"\" then (if loy_leveler() then 57 else if box_leveler() then 78 else 75) else if is_map() then 40 else 29}",
+      "top": "{if is_mutate() then 329 else top_of_textbox()}",
+      "right": "{ if is_leveler() then (if lone_pt() or card.pt == \"\" then 342 else 277) else if is_mutate() then 342 else if is_map() then 40 else 29}",
+      "bottom": "{ if is_mutate() then 392 else if is_leveler() then (327+lv_1_height()) else bottom_of_textbox() }",
+      "font": {
+        "name": "MPlantin",
+        "italicName": "MPlantin-Italic",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6,
+        "color": "{ if is_full_art() or is_fnm() or is_inverted() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_full_art() or is_fnm() then \"black\" else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      },
+      "symbolFont": {
+        "name": "{ styling.text_box_mana_symbols }",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6
+      },
+      "alignment": { "script": { "default": "\"middle left\"" } },
+      "zIndex": 3,
+      "paddingLeft": 6,
+      "paddingRight": 4,
+      "lineHeightHard": "{if is_modal(card.level_1_text) then 0.9 else 1.2 }",
+      "lineHeightLine": 1.5,
+      "lineHeightSoft": 0.9,
+      "lineHeightHardMax": "{if is_modal(card.level_1_text) then 1.0 else 1.3 }",
+      "lineHeightLineMax": 1.6
+    },
+    "level2Text": {
+      "left": "{ if is_leveler() then (if card.level_1 != \"\" then (if loy_leveler() then 57 else if box_leveler() then 78 else 75) else if is_map() then 40 else 29) else 0}",
+      "top": "{ if is_leveler() then (329 + lv_2_coordinate()) else 0 }",
+      "right": "{ if is_leveler() then (if card.pt_2 != \"\" then 277 else 342) else 0 }",
+      "bottom": "{ if is_leveler() then (329 + lv_2_coordinate()) + lv_2_height()-2 else 0 }",
+      "font": {
+        "name": "MPlantin",
+        "italicName": "MPlantin-Italic",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6,
+        "color": "{ if is_full_art() or is_fnm() or is_inverted() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_full_art() or is_fnm() then \"black\" else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      },
+      "symbolFont": {
+        "name": "{ styling.text_box_mana_symbols }",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6
+      },
+      "alignment": { "script": { "default": "\"middle left\"" } },
+      "zIndex": 3,
+      "paddingLeft": 6,
+      "paddingRight": 4,
+      "lineHeightHard": "{if is_modal(card.level_2_text) then 0.9 else 1.2 }",
+      "lineHeightLine": 1.5,
+      "lineHeightSoft": 0.9,
+      "lineHeightHardMax": "{if is_modal(card.level_2_text) then 1.0 else 1.3 }",
+      "lineHeightLineMax": 1.6
+    },
+    "level3Text": {
+      "left": "{if card.level_2 != \"\" then (if loy_leveler() then 57 else if box_leveler() then 78 else 75) else if is_map() then 40 else 29}",
+      "top": "{331 + lv_3_coordinate()}",
+      "right": "{if card.pt_3 != \"\" then 277 else 342}",
+      "height": "{if not is_leveler()then 0 else lv_3_height()-2}",
+      "font": {
+        "name": "MPlantin",
+        "italicName": "MPlantin-Italic",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6,
+        "color": "{ if is_full_art() or is_fnm() or is_inverted() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_full_art() or is_fnm() then \"black\" else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      },
+      "symbolFont": {
+        "name": "{ styling.text_box_mana_symbols }",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6
+      },
+      "alignment": { "script": { "default": "\"middle left\"" } },
+      "zIndex": 3,
+      "paddingLeft": 6,
+      "paddingRight": 4,
+      "lineHeightHard": "{if is_modal(card.level_3_text) then 0.9 else 1.2 }",
+      "lineHeightLine": 1.5,
+      "lineHeightSoft": 0.9,
+      "lineHeightHardMax": "{if is_modal(card.level_3_text) then 1.0 else 1.3 }",
+      "lineHeightLineMax": 1.6
+    },
+    "level4Text": {
+      "left": "{if card.level_3 != \"\" then (if loy_leveler() then 57 else if box_leveler() then 78 else 75) else if is_map() then 40 else 29}",
+      "top": "{331 + lv_4_coordinate()}",
+      "right": "{if card.pt_7 != \"\" then 277 else 342}",
+      "height": "{if not is_leveler() then 0 else lv_4_height()-2}",
+      "font": {
+        "name": "MPlantin",
+        "italicName": "MPlantin-Italic",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6,
+        "color": "{ if is_full_art() or is_fnm() then \"white\" else \"black\"}",
+        "shadowColor": "{if is_full_art() or is_fnm() then \"black\" else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      },
+      "symbolFont": {
+        "name": "{ styling.text_box_mana_symbols }",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6
+      },
+      "alignment": { "script": { "default": "\"middle left\"" } },
+      "zIndex": 3,
+      "paddingLeft": 6,
+      "paddingRight": 4,
+      "lineHeightHard": "{if is_modal(card.level_4_text) then 0.9 else 1.2 }",
+      "lineHeightLine": 1.5,
+      "lineHeightSoft": 0.9,
+      "lineHeightHardMax": "{if is_modal(card.level_4_text) then 1.0 else 1.3 }",
+      "lineHeightLineMax": 1.6
+    },
+    "watermark": {
+      "left": "{ if is_map() then 40 else 19 }",
+      "top": "{ if is_full_art() then 359 else 330 }",
+      "width": "{ if is_tarot() then 0 else if is_map() then 287 else 334 }",
+      "height": "{ if is_map() then 154 else if is_full_art() then 120 else 152 }",
+      "zIndex": 2,
+      "renderStyle": "image",
+      "popupStyle": "in place",
+      "alignment": "middle center",
+      "includeFile": "/magic-watermarks.mse-include/watermarks"
+    },
+    "level0": {
+      "zIndex": 7,
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 14 else 21}",
+      "top": "{l1_center() - (if aug_leveler(0) then 4 else 2) - (if center_label(0) then 6 else 0) + arrow_offset(0)}",
+      "width": "{if is_leveler() or card.level_0 != \"\" then (34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": 22,
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if loy_leveler() then 11 else 12 + if center_label(0) then 2 else 0}",
+        "weight": "bold",
+        "color": "{if loy_leveler() then \"white\" else \"black\"}",
+        "shadowColor": "{ if loy_leveler() then rgba(0,0,0,0) else \"white\"}",
+        "shadowBlur": 2
+      },
+      "symbolFont": {
+        "name": "{ styling.level_mana_symbols }",
+        "size": "{12 + if center_label(0) then 0.5 else 0}"
+      }
+    },
+    "level1": {
+      "zIndex": 7,
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 14 else 21}",
+      "top": "{l2_center() - (if aug_leveler(1) then 4 else 2) - (if center_label(1) then 6 else 0) + arrow_offset(1)}",
+      "height": 22,
+      "width": "{if is_leveler() or card.level_1 != \"\" then (34 + (if box_leveler() then 30 else 0)) else 0}",
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if loy_leveler() then 11 else 12 + if center_label(0) then 2 else 0}",
+        "weight": "bold",
+        "color": "{if loy_leveler() then \"white\" else \"black\"}",
+        "shadowColor": "{ if loy_leveler() then rgba(0,0,0,0) else \"white\"}",
+        "shadowBlur": 2
+      },
+      "symbolFont": {
+        "name": "{ styling.level_mana_symbols }",
+        "size": "{12 + if center_label(0) then 0.5 else 0}"
+      }
+    },
+    "level2": {
+      "zIndex": 7,
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 14 else 21}",
+      "top": "{l3_center() - (if aug_leveler(2) then 4 else 2) - (if center_label(2) then 6 else 0) + arrow_offset(2)}",
+      "width": "{if is_leveler() or card.level_2 != \"\" then (34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": 22,
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if loy_leveler() then 11 else 12 + if center_label(0) then 2 else 0}",
+        "weight": "bold",
+        "color": "{if loy_leveler() then \"white\" else \"black\"}",
+        "shadowColor": "{ if loy_leveler() then rgba(0,0,0,0) else \"white\"}",
+        "shadowBlur": 2
+      },
+      "symbolFont": {
+        "name": "{ styling.level_mana_symbols }",
+        "size": "{12 + if center_label(0) then 0.5 else 0}"
+      }
+    },
+    "level3": {
+      "zIndex": 7,
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 14 else 21}",
+      "top": "{l4_center() - (if aug_leveler(3) then 4 else 2) - (if center_label(3) then 6 else 0) + arrow_offset(3)}",
+      "width": "{if is_leveler() or card.level_2 != \"\" then (34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": "{ if card_style.level_4_text.height < 10 and card.level_3 == \"\" then 0 else 22}",
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if loy_leveler() then 11 else 12 + if center_label(0) then 2 else 0}",
+        "weight": "bold",
+        "color": "{if loy_leveler() then \"white\" else \"black\"}",
+        "shadowColor": "{ if loy_leveler() then rgba(0,0,0,0) else \"white\"}",
+        "shadowBlur": 2
+      },
+      "symbolFont": {
+        "name": "{ styling.level_mana_symbols }",
+        "size": "{12 + if center_label(0) then 0.5 else 0}"
+      }
+    },
+    "pt": {
+      "zIndex": 4,
+      "left": "{if is_leveler() and not lone_pt() then 291 else 286}",
+      "top": "{ if is_leveler() and not lone_pt() then (l1_center() - 14) else if is_map() then 467 else 469}",
+      "width": "{if starting_loyalty() and not is_leveler() then 0 else 60}",
+      "height": 28,
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if is_map() then 14 else 16}",
+        "color": "{if is_shifted() or is_fnm() or is_inverted() then \"white\" else if is_vehicle() and (not is_legend() or chosen(styling.other_options, choice:\"brown legendary vehicle pt\")) then \"white\" else \"black\"}",
+        "separatorColor": "red",
+        "shadowColor": "{if is_shifted() or is_fnm() then rgb(0,0,0) else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      }
+    },
+    "pt2": {
+      "zIndex": 4,
+      "left": 291,
+      "top": "{(l2_center() - 12)}",
+      "width": "{if is_leveler() and not lone_pt() or card.pt_2 != \"\" then 60 else 0}",
+      "height": 28,
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if is_map() then 14 else 16}",
+        "color": "{if is_shifted() or is_fnm() or is_inverted() then \"white\" else if is_vehicle() and (not is_legend() or chosen(styling.other_options, choice:\"brown legendary vehicle pt\")) then \"white\" else \"black\"}",
+        "separatorColor": "red",
+        "shadowColor": "{if is_shifted() or is_fnm() then rgb(0,0,0) else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      }
+    },
+    "pt3": {
+      "zIndex": 4,
+      "left": 291,
+      "top": "{(l3_center() - 12)}",
+      "width": "{if is_leveler() and not lone_pt() or card.pt_3 != \"\" then 60 else 0}",
+      "height": 28,
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if is_map() then 14 else 16}",
+        "color": "{if is_shifted() or is_fnm() or is_inverted() then \"white\" else if is_vehicle() and (not is_legend() or chosen(styling.other_options, choice:\"brown legendary vehicle pt\")) then \"white\" else \"black\"}",
+        "separatorColor": "red",
+        "shadowColor": "{if is_shifted() or is_fnm() then rgb(0,0,0) else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      }
+    },
+    "pt7": {
+      "zIndex": 4,
+      "left": 291,
+      "top": "{(l4_center() - 12)}",
+      "width": "{if is_leveler() and not lone_pt() or card.pt_7 != \"\" then 60 else 0}",
+      "height": "{if card_style.level_4_text.height < 10 and card.pt_7 == \"\" then 0 else 28}",
+      "alignment": "center middle shrink-overflow",
+      "font": {
+        "name": "Beleren Bold",
+        "size": "{if is_map() then 14 else 16}",
+        "color": "{if is_shifted() or is_fnm() then \"white\" else if is_vehicle() and (not is_legend() or chosen(styling.other_options, choice:\"brown legendary vehicle pt\")) then \"white\" else \"black\"}",
+        "separatorColor": "red",
+        "shadowColor": "{if is_shifted() or is_fnm() then rgb(0,0,0) else rgba(0,0,0,0)}",
+        "shadowDisplacementX": -1,
+        "shadowDisplacementY": 1
+      }
+    },
+    "loyalty": {
+      "zIndex": 7,
+      "left": 326,
+      "top": 468,
+      "width": "{if starting_loyalty() then 13.16 else 0}",
+      "height": 34.63,
+      "alignment": "center middle",
+      "font": { "name": "Beleren Bold", "size": 14, "color": "white" }
+    },
+    "setCode": {
+      "left": 24,
+      "top": 498,
+      "width": 40,
+      "height": 10,
+      "zIndex": 3,
+      "font": { "name": "Relay-Medium", "size": 7, "color": "white", "weight": "bold" }
+    },
+    "illustrator": {
+      "left": "{ 44 + card_style.set_code.content_width }",
+      "top": 497.5,
+      "width": 200,
+      "height": 10,
+      "zIndex": 3,
+      "font": { "name": "Beleren Small Caps Bold", "size": 7.25, "color": "white" }
+    },
+    "copyright": {
+      "right": 350,
+      "top": {
+        "IsLeveler()AndNotLonePt()": 488,
+        "(startingLoyalty()AndCard.loyalty!=\"\")Or(card.pt!=\"\"AndNotStartingLoyalty())": 500,
+        "default": 488
+      },
+      "width": "{if set.automatic_copyright then 0 else 140}",
+      "height": 10,
+      "zIndex": 4,
+      "alignment": "middle right",
+      "font": { "name": "MPlantin", "size": 6.5, "color": "white", "weight": "bold" }
+    }
+  },
+  "extraCardField": {
+    "type": "choice",
+    "name": "flash indicator",
+    "choice": "dot",
+    "saveValue": "false",
+    "editable": "false"
+  },
+  "extraCardStyle": {
+    "promoLabel": {
+      "left": 40,
+      "top": "{ if is_full_art() then 295 else 262 }",
+      "width": "{if chosen(styling.other_options, choice:\"prerelease stamp\") then 295 else 0}",
+      "height": 29,
+      "alignment": "middle right",
+      "zIndex": 4,
+      "font": { "name": "ModMatrix", "size": 14, "color": "rgb(223,169,41)" }
+    },
+    "cardCode": {
+      "left": 24,
+      "top": 488,
+      "width": 120,
+      "height": 10,
+      "zIndex": 3,
+      "font": { "name": "Relay-Medium", "size": 7, "color": "white", "weight": "bold" }
+    },
+    "artistArrow": {
+      "left": "{ 28 + card_style.set_code.content_width }",
+      "top": 500,
+      "width": 12,
+      "height": 7,
+      "zIndex": 3,
+      "renderStyle": "image",
+      "image": "artist_arrow.png"
+    },
+    "ptBox": {
+      "left": "{ if is_leveler() and not lone_pt() then 278 else if is_map() then 270 else 273}",
+      "top": "{ if is_leveler() and not lone_pt() then (l1_center() - (if is_map() then 26 else 18)) else if is_map() then 453 else 466}",
+      "width": "{ if starting_loyalty() and not is_leveler() then 0 else if is_map() then 90 else 81}",
+      "height": "{ if is_map() then 54 else 42}",
+      "zIndex": 3,
+      "visible": "{ card.pt != \"\" }",
+      "renderStyle": "image",
+      "image": "{ if is_map() then mappt_background() else if is_vehicle() and (not is_legend() or chosen(styling.other_options, choice:\"brown legendary vehicle pt\")) then \"vpt.png\" else if is_clear() then \"cpt.png\" else choose_ptbox() }"
+    },
+    "ptBox2": {
+      "left": 278,
+      "top": "{ l2_center() - (if is_map() then 26 else 15)}",
+      "width": "{ if (is_leveler() and not lone_pt()) or card.pt_2 != \"\" then (if is_map() then 90 else 81) else 0}",
+      "height": "{ if (is_leveler() and not lone_pt()) or card.pt_2 != \"\" then (if is_map() then 54 else 42) else 0}",
+      "zIndex": 3,
+      "visible": "{ card.pt_2 != \"\" }",
+      "renderStyle": "image",
+      "image": "{if is_map() then mappt_background() else combine_blend(image1: lv_2_ptbox(), image2: \"ptbox_multiply_1.png\", combine: \"multiply\")}"
+    },
+    "ptBox3": {
+      "left": 278,
+      "top": "{ l3_center() - (if is_map() then 26 else 15)}",
+      "width": "{ if (is_leveler() and not lone_pt()) or card.pt_3 != \"\" then (if is_map() then 90 else 81) else 0}",
+      "height": "{ if (is_leveler() and not lone_pt()) or card.pt_3 != \"\" then (if is_map() then 54 else 42) else 0}",
+      "zIndex": 3,
+      "visible": "{ card.pt_3 != \"\" }",
+      "renderStyle": "image",
+      "image": "{if is_map() then mappt_background() else combine_blend(image1: lv_3_ptbox(), image2: \"ptbox_multiply_2.png\", combine: \"multiply\")}"
+    },
+    "ptBox4": {
+      "left": 278,
+      "top": "{ l4_center() - (if is_map() then 26 else 15)}",
+      "width": "{ if (is_leveler() and not lone_pt()) or card.pt_3 != \"\" then (if is_map() then 90 else 81) else 0}",
+      "height": "{ if (is_leveler() and not lone_pt()) or card.pt_3 != \"\" then (if is_map() then 54 else 42) else 0}",
+      "zIndex": 3,
+      "visible": "{ card.pt_7 != \"\" }",
+      "renderStyle": "image",
+      "image": "{if is_map() then mappt_background() else combine_blend(image1: lv_4_ptbox(), image2: \"ptbox_multiply_3.png\", combine: \"multiply\")}"
+    },
+    "loyaltyBox": {
+      "right": 362,
+      "top": 466,
+      "width": 60,
+      "height": 38,
+      "zIndex": 6,
+      "renderStyle": "image",
+      "visible": "{ starting_loyalty() and card.loyalty != \"\" }",
+      "choiceImages": { "loyalty": "loyalty.png" }
+    },
+    "stamp": {
+      "left": 165,
+      "top": 472,
+      "width": 46,
+      "height": 26,
+      "zIndex": 2,
+      "visible": "{ is_rare() and styling.use_holofoil_stamps and (is_devoid() or not is_clear()) }",
+      "renderStyle": "image",
+      "image": "{ if is_map() then \"maps/holo_stamp.png\" else if is_devoid() then \"devoid/stamp.png\" else card_stamp() }",
+      "mask": "{\"stamp_mask.png\"}"
+    },
+    "foilStamp": {
+      "left": 165,
+      "top": 472,
+      "width": 46,
+      "height": 26,
+      "zIndex": 3,
+      "visible": "{ is_rare() and styling.use_holofoil_stamps and (is_devoid() or not is_clear()) }",
+      "renderStyle": "image",
+      "image": "foil_stamp.png"
+    },
+    "foilLayer": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "zIndex": 3,
+      "renderStyle": "image",
+      "image": "{if styling.overlay == \"\" then nil else styling.overlay + \"/overlay.png\"}",
+      "mask": "{ \"foil_mask\" + (if card.pt != \"\" then \"_pt\") + (if is_rare() and styling.use_holofoil_stamps then \"_rare\") + \".png\" }"
+    },
+    "autoCopyright": {
+      "right": 350,
+      "top": {
+        "IsLeveler()AndNotLonePt()": 488,
+        "(startingLoyalty()AndCard.loyalty!=\"\")Or(card.pt!=\"\"AndNotStartingLoyalty())": 500,
+        "default": 488
+      },
+      "width": "{if set.automatic_copyright then 140 else 0}",
+      "height": 10,
+      "zIndex": 4,
+      "alignment": "middle right",
+      "font": { "name": "MPlantin", "size": 6.5, "color": "white", "weight": "bold" }
+    },
+    "nyxOverlay": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{nyx_background()}",
+      "zIndex": 0,
+      "visible": "{is_nyx()}",
+      "mask": "{\"nyx/\" + (if is_vehicle() then \"v_\" else \"\") + (if is_full_art() then \"full\" else \"\") + \"mask.png\"}"
+    },
+    "crown": {
+      "left": 0,
+      "top": "{if is_devoid() then 1 else 0}",
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{if (is_clear() or clear_tops()) and not is_devoid() then \"legend/xcrown.png\" else if is_fnm() then set_mask(image:crown_background(), mask:\"legend/fnm_mask.png\") else crown_background()}",
+      "zIndex": 5,
+      "visible": "{is_legend() and not is_map()}",
+      "mask": "{if is_legend() and styling.legend_crown != \"custom\" and (is_curtains() or is_expanded_art() or is_puma() or is_devoid()) then \"curtainmask.png\" else if is_season() then \"crown_season_mask.png\" else \"\"}"
+    },
+    "curtain": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{if is_cons() then cons_background() else curtain_background()}",
+      "zIndex": 0,
+      "visible": "{is_cons() or is_curtains()}",
+      "mask": "{if is_legend() and is_curtains() then \"lcurtainmask.png\"}"
+    },
+    "scrolls": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{if is_puma() then \"puma.png\" else (if is_full_art() then \"full_\" else \"\") + \"consscrolls.png\"}",
+      "mask": "{if is_puma() then \"puma_mask3.png\" else \"\"}",
+      "zIndex": 1,
+      "visible": "{is_scrolls() or is_puma()}"
+    },
+    "miracleOverlay": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{if (is_clear() or clear_tops()) and not is_devoid() then \"miracles/xmiracle.png\" else miracle_background()}",
+      "zIndex": 1,
+      "visible": "{is_miracle()}"
+    },
+    "snowOverlay": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{snow_texture()}",
+      "zIndex": 1,
+      "mask": "{\"snow/snow_\" + (if is_full_art() then \"promo\" else \"fnm\") + \"_mask.png\"}",
+      "visible": "{is_snow() and not pure_snow() and not is_expanded_art()}"
+    },
+    "vehicleOverlay": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "renderStyle": "image",
+      "image": "{\"voverlay\" + (if is_full_art() then \"_full\" else \"\") + \".png\" }",
+      "zIndex": 0,
+      "visible": "{is_vehicle()}"
+    },
+    "clearFrame": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "{ if is_devoid() then devoid_background() else if is_rare() and styling.use_holofoil_stamps then \"clear_rare.png\" else \"clear.png\"}",
+      "visible": "{ is_clear() or is_devoid() or clear_tops()}"
+    },
+    "mirrorFrame": {
+      "left": 0,
+      "top": 0,
+      "width": "{if clear_tops() then 375 else 0}",
+      "height": 523,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "popupStyle": "in place",
+      "image": "{ if not clear_tops() then \"\" else if is_fnm() then fnm_background() else if is_inverted() then inverted_background() else if is_full_art() then promo_background() else card_background() }",
+      "mask": "{if clear_tops() then \"clear_tops_mask.png\" else \"\"}"
+    },
+    "mapFrame": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "{ if is_map() then map_background() else energy_background() }",
+      "visible": "{ is_map() or is_thbland() }"
+    },
+    "evobar": {
+      "left": "{if is_map() then 15 else 27}",
+      "top": "{if is_map() then 62 else 57}",
+      "width": "{card_style.alias.content_width}",
+      "height": 27,
+      "zIndex": 2,
+      "renderStyle": "image",
+      "image": "evobar.png",
+      "visible": "{use_evobar()}"
+    },
+    "evobarTip": {
+      "left": "{(if is_map() then 14.6 else 26.6) + card_style.alias.content_width}",
+      "top": "{if is_map() then 62 else 57}",
+      "width": 36,
+      "height": 27,
+      "zIndex": 2,
+      "renderStyle": "image",
+      "image": "evobar_tip.png",
+      "visible": "{use_evobar()}"
+    },
+    "flavorBar": {
+      "left": 0,
+      "top": "{ bar_equation() }",
+      "width": 375,
+      "height": 1,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "bar.png",
+      "visible": "{ card.rule_text != \"\" and remove_tags(card.flavor_text) != \"\" and set.use_flavor_bar }"
+    },
+    "tarotWatermark": {
+      "left": "{ if is_map() then 40 else 19 }",
+      "top": "{ if is_full_art() then 359 else 330 }",
+      "width": "{ if not is_tarot() then 0 else if is_map() then 287 else 334 }",
+      "height": "{ if is_map() then 154 else if is_full_art() then 120 else 152 }",
+      "zIndex": 2,
+      "alignment": "middle center",
+      "font": { "name": "MPlantin", "size": 90, "color": "{rgba(0,0,0,40)}" }
+    },
+    "lvlLabel0": {
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 48 else 21}",
+      "top": "{l1_center() - (if loy_leveler() then 2 else 10) + arrow_offset(0)}",
+      "width": "{if is_leveler() or card.level_0 != \"\" then (if loy_leveler() then 10 else 34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": "{if loy_leveler() then 10 else if center_label(0) then 0 else 10}",
+      "zIndex": 6,
+      "alignment": "middle center",
+      "font": {
+        "name": "{if loy_leveler() then \"MPlantin\" else \"Beleren Small Caps\"}",
+        "size": "{if loy_leveler() then 15 else if length(level_label(0)) < 8 or box_leveler() then 7 else 6}",
+        "color": "black",
+        "weight": "{if loy_leveler() then \"\" else \"bold\"}"
+      },
+      "visible": "{card.level_0 != \"\"}"
+    },
+    "lvlLabel1": {
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 48 else 21}",
+      "top": "{l2_center() - (if loy_leveler() then 2 else 10) + arrow_offset(1)}",
+      "width": "{if is_leveler() or card.level_1 != \"\" then (if loy_leveler() then 10 else 34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": "{if loy_leveler() then 10 else if center_label(1) then 0 else 10}",
+      "zIndex": 6,
+      "alignment": "middle center",
+      "font": {
+        "name": "{if loy_leveler() then \"MPlantin\" else \"Beleren Small Caps\"}",
+        "size": "{if loy_leveler() then 15 else if length(level_label(1)) < 8 or box_leveler() then 7 else 6}",
+        "color": "black",
+        "weight": "{if loy_leveler() then \"\" else \"bold\"}"
+      },
+      "visible": "{card.level_1 != \"\"}"
+    },
+    "lvlLabel2": {
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 48 else 21}",
+      "top": "{l3_center() - (if loy_leveler() then 2 else 10) + arrow_offset(2)}",
+      "width": "{if is_leveler() or card.level_2 != \"\" then (if loy_leveler() then 10 else 34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": "{if loy_leveler() then 10 else if center_label(2) then 0 else 10}",
+      "zIndex": 6,
+      "alignment": "middle center",
+      "font": {
+        "name": "{if loy_leveler() then \"MPlantin\" else \"Beleren Small Caps\"}",
+        "size": "{if loy_leveler() then 15 else if length(level_label(2)) < 8 or box_leveler() then 7 else 6}",
+        "color": "black",
+        "weight": "{if loy_leveler() then \"\" else \"bold\"}"
+      },
+      "visible": "{card.level_2 != \"\"}"
+    },
+    "lvlLabel3": {
+      "left": "{if box_leveler() then 8 else if loy_leveler() then 48 else 21}",
+      "top": "{l4_center() - (if loy_leveler() then 2 else 10) + arrow_offset(3)}",
+      "width": "{if is_leveler() or card.level_3 != \"\" then (if loy_leveler() then 10 else 34 + (if box_leveler() then 30 else 0)) else 0}",
+      "height": "{if loy_leveler() then 10 else if center_label(3) then 0 else 10}",
+      "zIndex": 6,
+      "alignment": "middle center",
+      "font": {
+        "name": "{if loy_leveler() then \"MPlantin\" else \"Beleren Small Caps\"}",
+        "size": "{if loy_leveler() then 15 else if length(level_label(2)) < 8 or box_leveler() then 7 else 6}",
+        "color": "black",
+        "weight": "{if loy_leveler() then \"\" else \"bold\"}"
+      },
+      "visible": "{card.level_3 != \"\"}"
+    },
+    "level2Overlay": {
+      "left": 29,
+      "top": "{ if is_d20() then top_of_para(rolls_start(card.text)) else 329 + lv_2_coordinate()}",
+      "height": "{ if is_d20() then height_of_para(rolls_start(card.text)) else lv_2_height()}",
+      "width": 314,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "{overlay1()}",
+      "visible": "{(is_d20() and number_of_rolls(card.text) > 0) or (is_leveler() and not is_full_art() and not is_map() and not is_fnm() and not is_inverted())}"
+    },
+    "level3Overlay": {
+      "left": 29,
+      "top": "{ if is_d20() then top_of_para(rolls_start(card.text)+2) else 329 + lv_3_coordinate()}",
+      "height": "{ if is_d20() then height_of_para(rolls_start(card.text)+2) else lv_3_height()}",
+      "width": 314,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "{overlay2()}",
+      "visible": "{(is_d20() and number_of_rolls(card.text)-no_roll(card.text) > 2) or (is_leveler() and not is_full_art() and not is_map() and not is_fnm() and not is_inverted())}"
+    },
+    "level4Overlay": {
+      "left": 29,
+      "top": "{ if is_d20() then top_of_para(rolls_start(card.text)+4) else 329 + lv_4_coordinate()}",
+      "height": "{ if is_d20() then height_of_para(rolls_start(card.text)+4) else lv_4_height()}",
+      "width": 314,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "{overlay3()}",
+      "visible": "{(is_d20() and number_of_rolls(card.text)-no_roll(card.text) > 4) or (is_leveler() and not is_full_art() and not is_map() and not is_fnm() and not is_inverted())}"
+    },
+    "arrow1": {
+      "zIndex": 5,
+      "left": "{arrow_left()}",
+      "top": "{l1_center() - 16 + arrow_offset(0)}",
+      "width": "{if card.level_0 != \"\" then arrow_width() else 0}",
+      "height": "{arrow_height(0)}",
+      "renderStyle": "image",
+      "image": "{if loy_leveler() then loyalty_image(card.level_0) else if box_leveler() then choose_ptbox() else arrow_background()}"
+    },
+    "arrow2": {
+      "zIndex": 5,
+      "left": "{arrow_left()}",
+      "top": "{l2_center() - 16 + arrow_offset(1)}",
+      "width": "{if card.level_1 != \"\" then arrow_width() else 0}",
+      "height": "{arrow_height(1)}",
+      "renderStyle": "image",
+      "image": "{if loy_leveler() then loyalty_image(card.level_1) else if box_leveler() then choose_ptbox() else arrow_background()}"
+    },
+    "arrow3": {
+      "zIndex": 5,
+      "left": "{arrow_left()}",
+      "top": "{l3_center() - 16 + arrow_offset(2)}",
+      "width": "{if card.level_2 != \"\" then arrow_width() else 0}",
+      "height": "{arrow_height(2)}",
+      "renderStyle": "image",
+      "image": "{if loy_leveler() then loyalty_image(card.level_2) else if box_leveler() then choose_ptbox() else arrow_background()}"
+    },
+    "arrow4": {
+      "zIndex": 5,
+      "left": "{arrow_left()}",
+      "top": "{l4_center() - 16 + arrow_offset(3)}",
+      "width": "{if card.level_3 != \"\" then arrow_width() else 0}",
+      "height": "{arrow_height(3)}",
+      "renderStyle": "image",
+      "image": "{if loy_leveler() then loyalty_image(card.level_3) else if box_leveler() then choose_ptbox() else arrow_background()}"
+    },
+    "mutbar": {
+      "zIndex": 2,
+      "left": 28,
+      "top": 393,
+      "height": 2,
+      "width": 317,
+      "renderStyle": "image",
+      "image": "mutbar.png",
+      "visible": "{is_mutate()}"
+    },
+    "silverPatch": {
+      "left": 10,
+      "top": 10,
+      "width": 355,
+      "height": 15,
+      "zIndex": 2,
+      "visible": "{is_legend() and card.border_color == rgb(200,200,200)}"
+    },
+    "seasonFlag": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "zIndex": 1,
+      "renderStyle": "image",
+      "image": "{ season_background() }",
+      "visible": "{ is_season() }",
+      "mask": "{if is_expanded_art() then \"season/full_mask.png\" else \"\"}"
+    },
+    "ascend": {
+      "left": 37,
+      "top": 59,
+      "width": "{if is_season() then 300 else 0}",
+      "height": 20,
+      "angle": 270,
+      "zIndex": 6,
+      "alignment": "justify-all force",
+      "alwaysSymbol": "true",
+      "font": {
+        "name": "MPlantin",
+        "italicName": "MPlantin-Italic",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6,
+        "color": "black"
+      },
+      "symbolFont": {
+        "name": "{ styling.text_box_mana_symbols }",
+        "size": "{if styling.font_cap != \"\" then to_number(styling.font_cap) else 14}",
+        "scaleDownTo": 6
+      }
+    },
+    "aliasBar": {
+      "left": 38,
+      "top": "{if is_clear() or clear_tops() then 59 else 57}",
+      "width": 298,
+      "height": 21,
+      "zIndex": 2,
+      "renderStyle": "image",
+      "image": "{if is_devoid() then (if is_legend() then alias_bar() else \"alias/devoidalias.png\") else if is_clear() or clear_tops() then \"alias/xalias.png\" else alias_bar()}",
+      "visible": "{is_skinned() and not use_evobar()}"
+    },
+    "node": {
+      "left": 0,
+      "top": 0,
+      "height": 63,
+      "width": 375,
+      "zIndex": 6,
+      "renderStyle": "image",
+      "image": "{node_background()}",
+      "visible": "{not is_map() and not is_clear() and use_node()}"
+    },
+    "corner": {
+      "left": "{ if is_map() then 22 else 19}",
+      "top": 25,
+      "height": 31,
+      "width": "{if use_node() then 31 else 0}",
+      "zIndex": 7,
+      "renderStyle": "image",
+      "visible": "{use_node()}",
+      "choiceImages": {
+        "lesson": "corners/lesson.png",
+        "day": "corners/sun_circle.png",
+        "night": "corners/night_circle.png",
+        "eldrazi": "corners/eldrazi.png",
+        "moon": "corners/moon.png",
+        "compass": "corners/compass.png",
+        "artifact": "corners/artifact.png",
+        "creature": "corners/creature.png",
+        "enchantment": "corners/enchantment.png",
+        "instant": "corners/instant.png",
+        "land": "corners/land.png",
+        "multitype": "corners/multitype.png",
+        "sorcery": "corners/sorcery.png",
+        "planeswalker": "corners/planeswalker.png",
+        "structure": "corners/structure.png",
+        "aetherprint": "corners/aetherprint.png",
+        "sparkerColorsWhite": "corners/wcorner.png",
+        "sparkerColorsBlue": "corners/ucorner.png",
+        "sparkerColorsBlack": "corners/bcorner.png",
+        "sparkerColorsRed": "corners/rcorner.png",
+        "sparkerColorsGreen": "corners/gcorner.png",
+        "sparkerColorsMulticolor": "corners/mcorner.png",
+        "sparkerColorsColorless": "corners/ccorner.png",
+        "custom": "{ if contains(styling.custom_symbol, match:\".png\") then \"/magic-mainframe-extras.mse-include/\" + styling.custom_symbol else \"\" }"
+      }
+    },
+    "pridePin": {
+      "left": "{if is_legend() then 18 else 24}",
+      "top": 58,
+      "width": "{if not is_pinned() then 0 else if is_legend() then 338 else 325}",
+      "height": "{if not is_pinned() then 0 else 234}",
+      "zIndex": 7,
+      "renderStyle": "image",
+      "popupStyle": "in place",
+      "mask": "{\"/magic-pride.mse-include/masks/m15\" + if is_legend() then \" legend.png\" else \".png\"}",
+      "image": "{pin_image()}"
+    },
+    "vorthosBox": {
+      "right": "{ if is_leveler() and not lone_pt() then 350 else if (starting_loyalty() and card.loyalty != \"\") then 300 else if (card.pt != \"\" and not starting_loyalty()) then 275 else 350 }",
+      "top": "{if card.pt == \"\" and shown_cr() then 500 else 488}",
+      "width": "{ if is_leveler() and not lone_pt() then 140 else if (starting_loyalty() and card.loyalty != \"\") then 90 else if (card.pt != \"\" and not starting_loyalty()) then 65 else 140 }",
+      "height": "{if use_vorthos() then 10 else 0}",
+      "zIndex": 3,
+      "alignment": "middle right",
+      "font": { "name": "Relay-Medium", "size": 7, "color": "white", "weight": "bold" }
+    },
+    "flashIndicator": {
+      "left": 0,
+      "top": 0,
+      "width": 375,
+      "height": 523,
+      "zIndex": 5,
+      "renderStyle": "image",
+      "image": "flashdot.png",
+      "visible": "{ use_flash_dot() }"
+    }
+  }
+}

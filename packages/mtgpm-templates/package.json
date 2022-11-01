@@ -1,0 +1,18 @@
+{
+  "name": "@mtgpm/templates",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^18.0.3",
+    "bun-types": "^0.1.2",
+    "eslint-config-custom": "workspace:*",
+    "rambda": "^7.2.0",
+    "tsconfig": "workspace:*"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
+  }
+}

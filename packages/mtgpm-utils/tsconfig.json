@@ -1,0 +1,9 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "removeComments": false
+  },
+  "include": ["src", "tests"],
+  "exclude": ["dist", "build", "node_modules"]
+}
