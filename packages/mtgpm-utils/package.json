@@ -14,14 +14,15 @@
     "dev": "tsup --watch",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "lint": "TIMING=1 eslint src/**/*.ts --fix",
+    "typecheck": "tsc",
+    "lint": "bun rome check src/*.ts --apply-suggested",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
-    "tsup": "^6.0.1",
-    "vitest": "^0.18.0"
+    "tsup": "^6.4.0",
+    "vitest": "^0.25.1"
   },
   "prettier": {
     "singleQuote": true,

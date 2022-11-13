@@ -1,0 +1,26 @@
+{
+  "formatter": {
+    "enabled": true,
+    "lineWidth": 100,
+    "ignore": ["**/build/*", "apps/mtgpm/postgres-data/*", "**/dist/*"]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "ignore": ["**/build/*", "apps/mtgpm/postgres-data/*", "**/dist/*"],
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noAutofocus": "off"
+      },
+      "style": {
+        "noImplicitBoolean": "off",
+        "useBlockStatements": "off"
+      }
+    }
+  }
+}

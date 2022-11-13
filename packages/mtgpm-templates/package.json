@@ -5,10 +5,10 @@
   "main": "index.ts",
   "scripts": {},
   "devDependencies": {
-    "@types/node": "^18.0.3",
-    "bun-types": "^0.1.2",
+    "@types/node": "^18.11.9",
+    "bun-types": "^0.2.2",
     "eslint-config-custom": "workspace:*",
-    "rambda": "^7.2.0",
+    "rambda": "^7.3.0",
     "tsconfig": "workspace:*"
   },
   "prettier": {
